@@ -18,7 +18,6 @@ public class Dica {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fase_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_dica_fase"))
-    @Lob
     private Fase fase;
 
 
