@@ -13,7 +13,7 @@ public class DiagramaIdeal {
 
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "json")
     private String representacao; // JSON/texto do gabarito
 
 
