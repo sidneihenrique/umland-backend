@@ -40,6 +40,7 @@ class FaseController {
     public ResponseEntity<FaseDTO> criar(@RequestBody FaseDTO dto) {
         Fase fase = new Fase();
         fase.setTitulo(dto.getTitulo());
+        fase.setFala(dto.getFala()); // Nova linha
         fase.setPontuacaoReputacao(dto.getPontuacaoReputacao());
         fase.setMoedas(dto.getMoedas());
         // TODO: buscar personagem pelo personagemId e setar
@@ -52,6 +53,7 @@ class FaseController {
     public ResponseEntity<FaseDTO> atualizar(@PathVariable Long id, @RequestBody FaseDTO dto) {
         return repository.findById(id).map(fase -> {
             fase.setTitulo(dto.getTitulo());
+            fase.setFala(dto.getFala()); // Nova linha
             fase.setPontuacaoReputacao(dto.getPontuacaoReputacao());
             fase.setMoedas(dto.getMoedas());
             // TODO: buscar personagem pelo personagemId e setar
