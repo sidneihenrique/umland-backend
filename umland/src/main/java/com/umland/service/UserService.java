@@ -40,5 +40,9 @@ public class UserService {
                 .map(List::of)
                 .orElse(List.of());
     }
+    
+    public User findByEmail(String email) {
+        return userDao.findByEmail(email).orElse(null);
+    }
 }
 

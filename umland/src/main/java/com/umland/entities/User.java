@@ -2,6 +2,7 @@ package com.umland.entities;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users") // evita conflito com palavra reservada
@@ -25,8 +26,13 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Inventory inventory;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<GameMap> gameMaps;
+    @ManyToMany
+    @JoinTable(
+        name = "user_gamemap",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "gamemap_id")
+    )
+    private List<GameMap> gameMaps = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -92,7 +98,7 @@ public class User {
 		this.inventory = inventory;
 	}
 
-	public ArrayList<GameMap> getGameMaps() {
+	public List<GameMap> getGameMaps() {
 		return gameMaps;
 	}
 
