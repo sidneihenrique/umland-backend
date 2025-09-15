@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -21,9 +20,6 @@ public class User {
 
     private int reputation;
     private int coins;
-    
-    @Value("${app.files.path}")
-    private String filesPath;
 
     @ManyToOne
     @JoinColumn(name = "avatar_id")
@@ -41,6 +37,7 @@ public class User {
     )
     @JsonIgnore
     private List<GameMap> gameMaps = new ArrayList<>();
+    
 
 	public Integer getId() {
 		return id;
@@ -112,14 +109,6 @@ public class User {
 
 	public void setGameMaps(ArrayList<GameMap> gameMaps) {
 		this.gameMaps = gameMaps;
-	}
-
-	public String getFilesPath() {
-		return filesPath;
-	}
-
-	public void setFilesPath(String filesPath) {
-		this.filesPath = filesPath;
 	}
 
 }

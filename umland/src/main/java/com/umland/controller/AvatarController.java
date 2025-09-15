@@ -19,8 +19,7 @@ public class AvatarController {
     @Autowired
     private AvatarService avatarService;
     
-    @Value("${app.files.avatars.path}")
-    private String basePath;
+    private String basePath = "src/main/resources/static/uploads/avatars";
 
     @GetMapping
     public List<Avatar> getAllAvatars() {

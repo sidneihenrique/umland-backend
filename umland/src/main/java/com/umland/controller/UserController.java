@@ -3,6 +3,7 @@ package com.umland.controller;
 import com.umland.entities.User;
 import com.umland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 import com.umland.service.AvatarService;
 import com.umland.entities.Avatar;
@@ -28,6 +29,9 @@ public class UserController {
     
     @Autowired
     private InventoryService inventoryService;
+    
+    @Autowired
+    private Environment env;
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -62,6 +66,8 @@ public class UserController {
         user.setEmail(email);
         user.setPassword(password);
         user.setAvatar(avatar);
+        user.setReputation(100); // valor inicial de reputation
+        user.setCoins(100); // valor inicial de coins
         
         // Associa o GameMap de id 1
         GameMap gameMap = gameMapService.findById(1);
