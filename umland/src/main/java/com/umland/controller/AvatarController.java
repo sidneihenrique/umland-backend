@@ -19,7 +19,8 @@ public class AvatarController {
     @Autowired
     private AvatarService avatarService;
     
-    private String basePath = "src/main/resources/static/uploads/avatars";
+    @Value("${app.files.avatars.path}")
+    private String basePath;
 
     @GetMapping
     public List<Avatar> getAllAvatars() {
@@ -38,13 +39,20 @@ public class AvatarController {
     ) throws IOException {
         if (!imageFile.isEmpty()) {
             String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
-            File dest = new File(basePath, fileName);
-            File parentDir = dest.getParentFile();
-            if (!parentDir.exists()) {
-                parentDir.mkdirs();
+            
+            // ✅ Criar diretório absoluto
+            File uploadDir = new File(basePath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+                System.out.println("📂 Diretório criado: " + uploadDir.getAbsolutePath());
             }
+            
+            // ✅ Arquivo de destino
+            File dest = new File(uploadDir, fileName);
+            System.out.println("💾 Salvando arquivo em: " + dest.getAbsolutePath());
+            
             imageFile.transferTo(dest);
-            avatar.setFilePath(fileName); // O campo deve existir na entidade Avatar
+            avatar.setFilePath(fileName);
         }
         return avatarService.save(avatar);
     }
