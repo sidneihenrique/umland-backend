@@ -3,6 +3,8 @@ package com.umland.entities;
 import jakarta.persistence.*;
 import java.util.List;
 import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -17,6 +19,7 @@ public class Avatar {
 
     @Schema(hidden = true)
     @OneToMany(mappedBy = "avatar")
+    @JsonIgnore
     private List<User> users;
     
 	// getters e setters

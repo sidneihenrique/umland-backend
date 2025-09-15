@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "users") // evita conflito com palavra reservada
 public class User {
@@ -18,12 +21,16 @@ public class User {
 
     private int reputation;
     private int coins;
+    
+    @Value("${app.files.path}")
+    private String filesPath;
 
     @ManyToOne
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Inventory inventory;
 
     @ManyToMany
@@ -32,6 +39,7 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "gamemap_id")
     )
+    @JsonIgnore
     private List<GameMap> gameMaps = new ArrayList<>();
 
 	public Integer getId() {
@@ -106,7 +114,12 @@ public class User {
 		this.gameMaps = gameMaps;
 	}
 
-    // getters e setters
-    
-    
+	public String getFilesPath() {
+		return filesPath;
+	}
+
+	public void setFilesPath(String filesPath) {
+		this.filesPath = filesPath;
+	}
+
 }
