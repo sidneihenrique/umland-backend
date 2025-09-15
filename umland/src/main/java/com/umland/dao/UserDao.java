@@ -10,5 +10,9 @@ import java.util.Optional;
 public interface UserDao extends JpaRepository<User, Long> {
     // You can add custom query methods here if needed
     Optional<User> findByEmailAndPassword(String email, String password);
+    
+    //Metodo para verificar se o email ja existe
+    Optional<User> findByEmail(String email);
+
 
 }

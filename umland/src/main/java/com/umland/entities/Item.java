@@ -13,8 +13,9 @@ public class Item {
     private String title;
     private String description;
     private int price;
+    private String filePath; // Caminho da imagem associada ao item
 
-    @ManyToMany(mappedBy = "items")
+	@ManyToMany(mappedBy = "items")
     private ArrayList<Inventory> inventories;
     
 
@@ -57,6 +58,14 @@ public class Item {
 
 	public void setInventories(ArrayList<Inventory> inventories) {
 		this.inventories = inventories;
+	}
+	
+    public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
     

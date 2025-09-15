@@ -10,7 +10,7 @@ public class Character {
     private Integer id;
 
     private String name;
-    private String imagePath;
+    private String filePath;
     
 
     // getters e setters
@@ -27,11 +27,11 @@ public class Character {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getImagePath() {
-		return imagePath;
+	public String getFilePath() {
+		return filePath;
 	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
     

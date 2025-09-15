@@ -3,6 +3,7 @@ package com.umland.entities;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Inventory {
@@ -21,7 +22,8 @@ public class Inventory {
         joinColumns = @JoinColumn(name = "inventory_id"),
         inverseJoinColumns = @JoinColumn(name = "item_id")
     )
-    private ArrayList<Item> items;
+    private List<Item> items = new ArrayList<>();
+
 
     // getters e setters
     
@@ -41,7 +43,7 @@ public class Inventory {
 		this.user = user;
 	}
 
-	public ArrayList<Item> getItems() {
+	public List<Item> getItems() {
 		return items;
 	}
 
