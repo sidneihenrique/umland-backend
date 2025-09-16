@@ -31,9 +31,20 @@ public class Phase {
     @ManyToOne
     @JoinColumn(name = "gamemap_id")
     private GameMap gameMap;
+    
+    @OneToMany(mappedBy = "phase", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PhaseUser> phaseUsers;
+    
+    private String diagramInitial;
 
     @ElementCollection
+    @CollectionTable(name = "phase_correct_diagrams", joinColumns = @JoinColumn(name = "phase_id"))
+    @Column(name = "diagram_json", columnDefinition = "TEXT")
     private List<String> correctDiagrams;
+    
+    @ElementCollection
+    @OrderColumn(name = "dialogue_order")
+    private List<String> characterDialogues;
     
     // getters e setters
 
@@ -108,5 +119,24 @@ public class Phase {
 	public void setCorrectDiagrams(List<String> correctDiagrams) {
 		this.correctDiagrams = correctDiagrams;
 	}
+
+	public List<String> getCharacterDialogues() {
+		return characterDialogues;
+	}
+
+	public void setCharacterDialogues(List<String> characterDialogues) {
+		this.characterDialogues = characterDialogues;
+	}
+
+	public String getDiagramInitial() {
+		return diagramInitial;
+	}
+
+	public void setDiagramInitial(String diagramInitial) {
+		this.diagramInitial = diagramInitial;
+	}
+	
+	
+	
     
 }
