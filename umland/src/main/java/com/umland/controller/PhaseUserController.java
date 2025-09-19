@@ -5,6 +5,8 @@ import com.umland.service.PhaseUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.umland.entities.enums.PhaseStatus;
+
 import java.util.List;
 
 @RestController
@@ -26,6 +28,19 @@ public class PhaseUserController {
 
     @PostMapping
     public PhaseUser create(@RequestBody PhaseUser phaseUser) {
+        // Busca quantas PhaseUser existem para o usuário e GameMap
+        int count = phaseUserService.countByUserAndGameMap(
+            phaseUser.getUser().getId(),
+            phaseUser.getPhase().getGameMap().getId()
+        );
+
+        if (count == 0) {
+            phaseUser.setStatus(PhaseStatus.AVAILABLE);
+            phaseUser.setCurrent(true);
+        } else {
+            phaseUser.setStatus(PhaseStatus.LOCKED);
+            phaseUser.setCurrent(false);
+        }
         return phaseUserService.save(phaseUser);
     }
 

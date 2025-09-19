@@ -2,7 +2,10 @@ package com.umland.entities;
 
 import jakarta.persistence.*;
 import java.util.List;
+
 import com.umland.entities.enums.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Phase {
@@ -21,8 +24,6 @@ public class Phase {
 
     private int maxTime;
 
-    @Enumerated(EnumType.STRING)
-    private PhaseStatus status;
 
     @ManyToOne
     @JoinColumn(name = "character_id")
@@ -30,6 +31,7 @@ public class Phase {
 
     @ManyToOne
     @JoinColumn(name = "gamemap_id")
+    @JsonBackReference
     private GameMap gameMap;
     
     @OneToMany(mappedBy = "phase", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -86,14 +88,6 @@ public class Phase {
 
 	public void setMaxTime(int maxTime) {
 		this.maxTime = maxTime;
-	}
-
-	public PhaseStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(PhaseStatus status) {
-		this.status = status;
 	}
 
 	public Character getCharacter() {

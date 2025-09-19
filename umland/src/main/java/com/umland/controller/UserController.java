@@ -11,6 +11,10 @@ import com.umland.service.GameMapService;
 import com.umland.entities.GameMap;
 import com.umland.service.InventoryService;
 import com.umland.entities.Inventory;
+import com.umland.service.PhaseUserService;
+import com.umland.entities.PhaseUser;
+import com.umland.entities.Phase;
+import com.umland.entities.enums.PhaseStatus;
 
 import java.util.List;
 
@@ -29,6 +33,10 @@ public class UserController {
     
     @Autowired
     private InventoryService inventoryService;
+    
+    @Autowired
+    private PhaseUserService phaseUserService;
+
     
     @Autowired
     private Environment env;
@@ -81,8 +89,29 @@ public class UserController {
         inventory.setUser(user);
         user.setInventory(inventory);
         
-        // Salva o usuário (e o inventário por cascade)
-        return userService.save(user);
+        // Salva o usuário
+        User savedUser = userService.save(user);
+
+        int countPhases = 0; 
+        // Cria PhaseUser para cada Phase do GameMap
+        for (Phase phase : gameMap.getPhases()) {
+            PhaseUser phaseUser = new PhaseUser();
+            phaseUser.setUser(savedUser);
+            phaseUser.setPhase(phase);
+            if (countPhases == 0) {
+				phaseUser.setStatus(PhaseStatus.AVAILABLE); // primeira fase disponível
+				phaseUser.setCurrent(true);
+			} else {
+				phaseUser.setStatus(PhaseStatus.LOCKED); // fases subsequentes bloqueadas
+				phaseUser.setCurrent(false);
+			}
+            phaseUser.setReputation(0);
+            phaseUser.setCoins(0);
+            phaseUserService.save(phaseUser);
+            countPhases++;
+        }
+
+        return savedUser;
     }
 
     @PutMapping("/{id}")
