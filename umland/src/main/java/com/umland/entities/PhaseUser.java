@@ -23,6 +23,9 @@ public class PhaseUser {
 
     private int reputation;
     private int coins;
+    
+    @Column(nullable = false)
+    private boolean isCurrent;
 
     // Getters e setters
     public Integer getId() { return id; }
@@ -42,5 +45,8 @@ public class PhaseUser {
 
     public int getCoins() { return coins; }
     public void setCoins(int coins) { this.coins = coins; }
+    
+    public boolean isCurrent() { return isCurrent; }
+    public void setCurrent(boolean isCurrent) { this.isCurrent = isCurrent; }
 }
 

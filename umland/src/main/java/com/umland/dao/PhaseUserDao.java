@@ -9,5 +9,8 @@ import java.util.List;
 public interface PhaseUserDao extends JpaRepository<PhaseUser, Integer> {
     // Adicione métodos customizados se necessário
     List<PhaseUser> findByPhase_GameMap_IdAndUser_Id(Integer gameMapId, Integer userId);
+    
+    int countByUser_IdAndPhase_GameMap_Id(Integer userId, Integer gameMapId);
+
 
 }

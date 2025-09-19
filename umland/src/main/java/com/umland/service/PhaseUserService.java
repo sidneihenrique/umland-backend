@@ -28,4 +28,8 @@ public class PhaseUserService {
     public void delete(Integer id) {
         phaseUserDao.deleteById(id);
     }
+    
+    public int countByUserAndGameMap(Integer userId, Integer gameMapId) {
+        return phaseUserDao.countByUser_IdAndPhase_GameMap_Id(userId, gameMapId);
+    }
 }

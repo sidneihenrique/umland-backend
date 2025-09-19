@@ -92,15 +92,23 @@ public class UserController {
         // Salva o usuário
         User savedUser = userService.save(user);
 
+        int countPhases = 0; 
         // Cria PhaseUser para cada Phase do GameMap
         for (Phase phase : gameMap.getPhases()) {
             PhaseUser phaseUser = new PhaseUser();
             phaseUser.setUser(savedUser);
             phaseUser.setPhase(phase);
-            phaseUser.setStatus(PhaseStatus.LOCKED); // status inicial
+            if (countPhases == 0) {
+				phaseUser.setStatus(PhaseStatus.AVAILABLE); // primeira fase disponível
+				phaseUser.setCurrent(true);
+			} else {
+				phaseUser.setStatus(PhaseStatus.LOCKED); // fases subsequentes bloqueadas
+				phaseUser.setCurrent(false);
+			}
             phaseUser.setReputation(0);
             phaseUser.setCoins(0);
             phaseUserService.save(phaseUser);
+            countPhases++;
         }
 
         return savedUser;
