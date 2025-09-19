@@ -2,6 +2,9 @@ package com.umland.entities;
 
 import jakarta.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 
 @Entity
@@ -17,6 +20,7 @@ public class GameMap {
     private List<User> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "gameMap", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Phase> phases = new ArrayList<>();
     
     public GameMap() {
