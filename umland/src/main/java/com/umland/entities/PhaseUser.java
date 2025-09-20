@@ -1,6 +1,8 @@
 package com.umland.entities;
 
 import jakarta.persistence.*;
+import com.vladmihalcea.hibernate.type.json.JsonType;
+import org.hibernate.annotations.Type;
 import com.umland.entities.enums.PhaseStatus;
 
 @Entity
@@ -26,6 +28,10 @@ public class PhaseUser {
     
     @Column(nullable = false)
     private boolean isCurrent;
+    
+    @Type(JsonType.class)
+    @Column(columnDefinition = "json")
+    private String userDiagram;
 
     // Getters e setters
     public Integer getId() { return id; }
@@ -48,5 +54,8 @@ public class PhaseUser {
     
     public boolean isCurrent() { return isCurrent; }
     public void setCurrent(boolean isCurrent) { this.isCurrent = isCurrent; }
+    
+    public String getUserDiagram() { return userDiagram; }
+    public void setUserDiagram(String userDiagram) { this.userDiagram = userDiagram; }
 }
 

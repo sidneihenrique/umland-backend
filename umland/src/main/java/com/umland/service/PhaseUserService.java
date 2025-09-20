@@ -32,4 +32,8 @@ public class PhaseUserService {
     public int countByUserAndGameMap(Integer userId, Integer gameMapId) {
         return phaseUserDao.countByUser_IdAndPhase_GameMap_Id(userId, gameMapId);
     }
+    
+    public int updateUserDiagram(Integer id, String userDiagram) {
+        return phaseUserDao.updateUserDiagramById(id, userDiagram);
+    }
 }
