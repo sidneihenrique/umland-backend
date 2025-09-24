@@ -3,9 +3,12 @@ package com.umland.entities;
 import jakarta.persistence.*;
 import java.util.List;
 
-import com.umland.entities.enums.*;
+import org.hibernate.annotations.Type;
 
+import com.umland.entities.enums.*;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Phase {
@@ -15,6 +18,8 @@ public class Phase {
     private Integer id;
 
     private String title;
+    
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private PhaseType type;
@@ -31,12 +36,14 @@ public class Phase {
 
     @ManyToOne
     @JoinColumn(name = "gamemap_id")
-    @JsonBackReference
+    @JsonIgnoreProperties("phases")
     private GameMap gameMap;
     
     @OneToMany(mappedBy = "phase", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PhaseUser> phaseUsers;
     
+    @Type(JsonType.class)
+    @Column(columnDefinition = "json") 
     private String diagramInitial;
 
     @ElementCollection
@@ -64,6 +71,14 @@ public class Phase {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public PhaseType getType() {

@@ -20,6 +20,10 @@ public class PhaseUserService {
     public PhaseUser findById(Integer id) {
         return phaseUserDao.findById(id).orElse(null);
     }
+    
+    public PhaseUser findByPhaseAndUserId(Integer phaseId, Integer userId) {
+		return phaseUserDao.findByPhase_IdAndUser_Id(phaseId, userId);
+	}
 
     public PhaseUser save(PhaseUser phaseUser) {
         return phaseUserDao.save(phaseUser);
@@ -31,5 +35,9 @@ public class PhaseUserService {
     
     public int countByUserAndGameMap(Integer userId, Integer gameMapId) {
         return phaseUserDao.countByUser_IdAndPhase_GameMap_Id(userId, gameMapId);
+    }
+    
+    public int updateUserDiagram(Integer id, String userDiagram) {
+        return phaseUserDao.updateUserDiagramById(id, userDiagram);
     }
 }

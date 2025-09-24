@@ -21,9 +21,9 @@ public class PhaseUserController {
         return phaseUserService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public PhaseUser getById(@PathVariable Integer id) {
-        return phaseUserService.findById(id);
+    @GetMapping("/by-phase-and-user")
+    public PhaseUser getByPhaseAndUserId(@RequestParam Integer phaseId, @RequestParam Integer userId) {
+        return phaseUserService.findByPhaseAndUserId(phaseId, userId);
     }
 
     @PostMapping
@@ -47,5 +47,11 @@ public class PhaseUserController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         phaseUserService.delete(id);
+    }
+    
+    @PatchMapping(value = "/{id}/user-diagram", consumes = {"application/json", "text/plain"})
+    @CrossOrigin(origins = "http://localhost:4200", methods = RequestMethod.PATCH)
+    public void updateUserDiagram(@PathVariable Integer id, @RequestBody String userDiagram) {
+        phaseUserService.updateUserDiagram(id, userDiagram);
     }
 }
