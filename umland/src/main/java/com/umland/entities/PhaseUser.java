@@ -29,6 +29,9 @@ public class PhaseUser {
     @Column(nullable = false)
     private boolean isCurrent;
     
+    @Column(nullable = false)
+    private boolean isCompleted;
+    
     @Type(JsonType.class)
     @Column(columnDefinition = "json")
     private String userDiagram;
@@ -57,5 +60,14 @@ public class PhaseUser {
     
     public String getUserDiagram() { return userDiagram; }
     public void setUserDiagram(String userDiagram) { this.userDiagram = userDiagram; }
+    
+	public boolean isCompleted() {
+		return isCompleted;
+	}
+	public void setCompleted(boolean isCompleted) {
+		this.isCompleted = isCompleted;
+	}
+    
+    
 }
 
