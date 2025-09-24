@@ -21,5 +21,7 @@ public interface PhaseUserDao extends JpaRepository<PhaseUser, Integer> {
     @Query(value = "UPDATE phase_user SET user_diagram = cast(:userDiagram as json) WHERE id = :id", nativeQuery = true)
     int updateUserDiagramById(Integer id, String userDiagram);
 
+    PhaseUser findByPhase_IdAndUser_Id(Integer phaseId, Integer userId);
+
 
 }

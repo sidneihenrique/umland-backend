@@ -21,9 +21,9 @@ public class PhaseUserController {
         return phaseUserService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public PhaseUser getById(@PathVariable Integer id) {
-        return phaseUserService.findById(id);
+    @GetMapping("/by-phase-and-user")
+    public PhaseUser getByPhaseAndUserId(@RequestParam Integer phaseId, @RequestParam Integer userId) {
+        return phaseUserService.findByPhaseAndUserId(phaseId, userId);
     }
 
     @PostMapping
