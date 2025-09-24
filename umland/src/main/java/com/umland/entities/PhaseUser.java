@@ -68,13 +68,13 @@ public class PhaseUser {
 	public void setCompleted(boolean isCompleted) {
 		this.isCompleted = isCompleted;
 	}
+
 	public int getAccuracy() {
 		return accuracy;
 	}
 	public void setAccuracy(int accuracy) {
 		this.accuracy = accuracy;
 	}
-    
-    
+
 }
 
