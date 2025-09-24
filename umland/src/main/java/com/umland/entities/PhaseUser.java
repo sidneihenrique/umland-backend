@@ -25,6 +25,7 @@ public class PhaseUser {
 
     private int reputation;
     private int coins;
+    private int accuracy = 0;
     
     @Column(nullable = false)
     private boolean isCurrent;
@@ -66,6 +67,12 @@ public class PhaseUser {
 	}
 	public void setCompleted(boolean isCompleted) {
 		this.isCompleted = isCompleted;
+	}
+	public int getAccuracy() {
+		return accuracy;
+	}
+	public void setAccuracy(int accuracy) {
+		this.accuracy = accuracy;
 	}
     
     
