@@ -44,12 +44,6 @@ public class PhaseUserController {
         return phaseUserService.save(phaseUser);
     }
 
-    @PutMapping("/{id}")
-    public PhaseUser update(@PathVariable Integer id, @RequestBody PhaseUser phaseUser) {
-        phaseUser.setId(id);
-        return phaseUserService.save(phaseUser);
-    }
-    
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         phaseUserService.delete(id);
