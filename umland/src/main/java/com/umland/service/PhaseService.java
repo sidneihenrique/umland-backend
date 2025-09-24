@@ -47,8 +47,21 @@ public class PhaseService {
     }
 
     public Phase update(Integer id, Phase phase) {
-        phase.setId(id);
-        return phaseDao.save(phase);
+        Phase existingPhase = phaseDao.findById(id).orElseThrow(() -> new RuntimeException("Phase não encontrada"));
+
+        existingPhase.setTitle(phase.getTitle());
+        existingPhase.setDescription(phase.getDescription());
+        existingPhase.setType(phase.getType());
+        existingPhase.setMode(phase.getMode());
+        existingPhase.setMaxTime(phase.getMaxTime());
+        existingPhase.setCharacter(phase.getCharacter());
+        existingPhase.setGameMap(phase.getGameMap());
+        existingPhase.setCorrectDiagrams(phase.getCorrectDiagrams());
+        existingPhase.setCharacterDialogues(phase.getCharacterDialogues());
+        existingPhase.setDiagramInitial(phase.getDiagramInitial());
+        // Não altera existingPhase.setPhaseUsers(...);
+
+        return phaseDao.save(existingPhase);
     }
 
     public void delete(Integer id) {
