@@ -13,6 +13,8 @@ public interface UserDao extends JpaRepository<User, Long> {
     
     //Metodo para verificar se o email ja existe
     Optional<User> findByEmail(String email);
+    
+    Optional<User> findById(Integer id);
 
 
 }

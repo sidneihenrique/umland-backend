@@ -3,9 +3,11 @@ package com.umland.controller;
 import com.umland.entities.GameMap;
 import com.umland.service.GameMapService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.umland.entities.Phase;
 import com.umland.entities.PhaseUser;
+import com.umland.entities.User;
 
 import java.util.List;
 
@@ -57,5 +59,26 @@ public class GameMapController {
         }
         // Supondo que exista um método no serviço para buscar PhaseUser por GameMap e usuário
         return gameMapService.findPhaseUsersByGameMapAndUser(gameMapId, userId);
+    }
+    
+    @PostMapping("/{gameMapId}/set-to-user/{userId}")
+    public ResponseEntity<GameMap> setGameMapToUser(@PathVariable Integer gameMapId, @PathVariable Integer userId) {
+        GameMap gameMap = gameMapService.findById(gameMapId);
+        if (gameMap == null) {
+            return ResponseEntity.noContent().build();
+        }
+        User user = gameMapService.findUserById(userId);
+        if (user == null) {
+            return ResponseEntity.noContent().build();
+        }
+        // Validação para evitar duplicidade
+        if (!user.getGameMaps().contains(gameMap)) {
+            user.getGameMaps().add(gameMap);
+        }
+        if (!gameMap.getUsers().contains(user)) {
+            gameMap.getUsers().add(user);
+        }
+        gameMapService.saveGameMapAndUser(gameMap, user);
+        return ResponseEntity.ok(gameMap);
     }
 }
