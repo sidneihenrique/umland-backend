@@ -55,6 +55,8 @@ public class Phase {
     @OrderColumn(name = "dialogue_order")
     private List<String> characterDialogues;
     
+    private Integer parentPhaseId;
+    
     // getters e setters
 
 	public Integer getId() {
@@ -145,6 +147,13 @@ public class Phase {
 		this.diagramInitial = diagramInitial;
 	}
 	
+	public Integer getParentPhaseId() {
+	    return parentPhaseId;
+	}
+
+	public void setParentPhaseId(Integer parentPhaseId) {
+	    this.parentPhaseId = parentPhaseId;
+	}
 	
 	
     
