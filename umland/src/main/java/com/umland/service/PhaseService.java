@@ -60,6 +60,21 @@ public class PhaseService {
         existingPhase.setCharacterDialogues(phase.getCharacterDialogues());
         existingPhase.setDiagramInitial(phase.getDiagramInitial());
         // Não altera existingPhase.setPhaseUsers(...);
+        
+        // Garante PhaseUser para cada usuário do GameMap
+        List<User> users = existingPhase.getGameMap().getUsers();
+        for (User user : users) {
+            PhaseUser phaseUser = phaseUserService.findByPhaseAndUserId(existingPhase.getId(), user.getId());
+            if (phaseUser == null) {
+                phaseUser = new PhaseUser();
+                phaseUser.setUser(user);
+                phaseUser.setPhase(existingPhase);
+                phaseUser.setStatus(PhaseStatus.LOCKED);
+                phaseUser.setReputation(0);
+                phaseUser.setCoins(0);
+                phaseUserService.save(phaseUser);
+            }
+        }
 
         return phaseDao.save(existingPhase);
     }
