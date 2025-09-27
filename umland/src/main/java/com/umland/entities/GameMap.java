@@ -1,7 +1,9 @@
 package com.umland.entities;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -16,6 +18,12 @@ public class GameMap {
     private Integer id;
     
     private String title;
+    
+    private LocalDateTime createdAt;
+    
+    @ManyToOne
+    @JoinColumn(name = "created_by_user_id")
+    private User createdByUser;
 
     @ManyToMany(mappedBy = "gameMaps")
     private List<User> users = new ArrayList<>();
@@ -23,6 +31,8 @@ public class GameMap {
     @OneToMany(mappedBy = "gameMap", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("gameMap")
     private List<Phase> phases = new ArrayList<>();
+    
+    // Construtor
     
     public GameMap() {
         this.phases = new ArrayList<>();
@@ -62,6 +72,22 @@ public class GameMap {
 	public void setPhases(ArrayList<Phase> phases) {
 		this.phases = phases;
 	}
+	
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public User getCreatedByUser() {
+        return createdByUser;
+    }
+
+    public void setCreatedByUser(User createdByUser) {
+        this.createdByUser = createdByUser;
+    }
     
     
 }

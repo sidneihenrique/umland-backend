@@ -43,7 +43,7 @@ public class Phase {
     private List<PhaseUser> phaseUsers;
     
     @Type(JsonType.class)
-    @Column(columnDefinition = "json") 
+    @Column(columnDefinition = "json", nullable = true) 
     private String diagramInitial;
 
     @ElementCollection
@@ -54,6 +54,8 @@ public class Phase {
     @ElementCollection
     @OrderColumn(name = "dialogue_order")
     private List<String> characterDialogues;
+    
+    private Integer parentPhaseId;
     
     // getters e setters
 
@@ -145,6 +147,13 @@ public class Phase {
 		this.diagramInitial = diagramInitial;
 	}
 	
+	public Integer getParentPhaseId() {
+	    return parentPhaseId;
+	}
+
+	public void setParentPhaseId(Integer parentPhaseId) {
+	    this.parentPhaseId = parentPhaseId;
+	}
 	
 	
     

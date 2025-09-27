@@ -25,9 +25,13 @@ public class PhaseUser {
 
     private int reputation;
     private int coins;
+    private int accuracy = 0;
     
     @Column(nullable = false)
     private boolean isCurrent;
+    
+    @Column(nullable = false)
+    private boolean isCompleted;
     
     @Type(JsonType.class)
     @Column(columnDefinition = "json")
@@ -57,5 +61,20 @@ public class PhaseUser {
     
     public String getUserDiagram() { return userDiagram; }
     public void setUserDiagram(String userDiagram) { this.userDiagram = userDiagram; }
+    
+	public boolean isCompleted() {
+		return isCompleted;
+	}
+	public void setCompleted(boolean isCompleted) {
+		this.isCompleted = isCompleted;
+	}
+
+	public int getAccuracy() {
+		return accuracy;
+	}
+	public void setAccuracy(int accuracy) {
+		this.accuracy = accuracy;
+	}
+
 }
 
