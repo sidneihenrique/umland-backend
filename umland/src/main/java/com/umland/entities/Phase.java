@@ -43,7 +43,7 @@ public class Phase {
     private List<PhaseUser> phaseUsers;
     
     @Type(JsonType.class)
-    @Column(columnDefinition = "json") 
+    @Column(columnDefinition = "json", nullable = true) 
     private String diagramInitial;
 
     @ElementCollection
