@@ -13,8 +13,12 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // permite todos os endpoints
-                        .allowedOrigins("http://localhost:4200") // origens permitidas
+            	System.out.println("🔧 CORS Configuration carregada!"); // ✅ Log de inicialização
+            	registry.addMapping("/**") // permite todos os endpoints
+		                .allowedOrigins(
+		                        "http://localhost:4200",  // ✅ Para desenvolvimento local
+		                        "https://hkv62z3p-4200.brs.devtunnels.ms"  // ✅ Para DevTunnels
+	                    )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // métodos HTTP
                         .allowedHeaders("*") // cabeçalhos
                         .allowCredentials(true); // permite envio de cookies/autenticação
