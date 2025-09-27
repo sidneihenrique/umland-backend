@@ -18,4 +18,8 @@ public class InventoryService {
     public Inventory findById(Integer id) {
 		return inventoryDao.findById(id).orElse(null);
 	}
+    
+    public Inventory findByUserId(Integer userId) {
+        return inventoryDao.findByUserId(userId);
+    }
 }
