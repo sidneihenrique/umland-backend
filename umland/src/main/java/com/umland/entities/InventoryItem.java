@@ -1,5 +1,7 @@
 package com.umland.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class InventoryItem {
 
     @ManyToOne
     @JoinColumn(name = "inventory_id", nullable = false)
+    @JsonBackReference
     private Inventory inventory;
 
     @Column(name = "item_name", nullable = false)
