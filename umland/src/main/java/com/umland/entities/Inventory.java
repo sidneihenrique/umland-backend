@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Inventory {
 
@@ -14,15 +16,12 @@ public class Inventory {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonManagedReference
     private User user;
-
-    @ManyToMany
-    @JoinTable(
-        name = "inventory_items",
-        joinColumns = @JoinColumn(name = "inventory_id"),
-        inverseJoinColumns = @JoinColumn(name = "item_id")
-    )
-    private List<Item> items = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<InventoryItem> items = new ArrayList<>();
 
 
     // getters e setters
@@ -43,11 +42,11 @@ public class Inventory {
 		this.user = user;
 	}
 
-	public List<Item> getItems() {
+	public List<InventoryItem> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<Item> items) {
+	public void setItems(List<InventoryItem> items) {
 		this.items = items;
 	}
 
