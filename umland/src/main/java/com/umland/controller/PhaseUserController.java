@@ -56,8 +56,8 @@ public class PhaseUserController {
     }
     
     @PatchMapping(value = "/{id}/user-diagram", consumes = {"application/json", "text/plain"})
-    @CrossOrigin(origins = "http://localhost:4200", methods = RequestMethod.PATCH)
     public void updateUserDiagram(@PathVariable Integer id, @RequestBody String userDiagram) {
         phaseUserService.updateUserDiagram(id, userDiagram);
     }
+    
 }

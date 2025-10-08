@@ -2,6 +2,7 @@ package com.umland.entities;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.hibernate.annotations.Type;
 
@@ -9,6 +10,7 @@ import com.umland.entities.enums.*;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Phase {
@@ -55,7 +57,20 @@ public class Phase {
     @OrderColumn(name = "dialogue_order")
     private List<String> characterDialogues;
     
-    private Integer parentPhaseId;
+    
+    @Enumerated(EnumType.STRING)
+    private PhaseNodeType nodeType;
+    
+    @OneToMany(mappedBy = "fromPhase", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    @JsonBackReference("phase-from")
+    private List<PhaseTransition> outgoingTransitions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "toPhase", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    @JsonBackReference("phase-to")
+    private List<PhaseTransition> incomingTransitions = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "fromPhase", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PhaseTransition> phaseTransitions;
     
     // getters e setters
 
@@ -146,14 +161,35 @@ public class Phase {
 	public void setDiagramInitial(String diagramInitial) {
 		this.diagramInitial = diagramInitial;
 	}
-	
-	public Integer getParentPhaseId() {
-	    return parentPhaseId;
+
+	public PhaseNodeType getNodeType() {
+		return nodeType;
 	}
 
-	public void setParentPhaseId(Integer parentPhaseId) {
-	    this.parentPhaseId = parentPhaseId;
+	public void setNodeType(PhaseNodeType nodeType) {
+		this.nodeType = nodeType;
 	}
+
+	public List<PhaseTransition> getOutgoingTransitions() {
+		return outgoingTransitions;
+	}
+
+	public void setOutgoingTransitions(List<PhaseTransition> outgoingTransitions) {
+		this.outgoingTransitions = outgoingTransitions;
+	}
+
+	public List<PhaseTransition> getIncomingTransitions() {
+		return incomingTransitions;
+	}
+
+	public void setIncomingTransitions(List<PhaseTransition> incomingTransitions) {
+		this.incomingTransitions = incomingTransitions;
+	}
+
+
+	
+	
+	
 	
 	
     
