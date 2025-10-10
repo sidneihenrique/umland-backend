@@ -21,7 +21,8 @@ public class PhaseService {
     private PhaseUserService phaseUserService;
 
     public List<Phase> findAll() {
-        return phaseDao.findAll();
+    	List<Phase> phases = phaseDao.findAll();
+        return phases;
     }
 
     public Phase findById(Integer id) {
@@ -37,7 +38,7 @@ public class PhaseService {
             PhaseUser phaseUser = new PhaseUser();
             phaseUser.setUser(user);
             phaseUser.setPhase(savedPhase);
-            phaseUser.setStatus(PhaseStatus.LOCKED); // status inicial
+            phaseUser.setStatus(PhaseStatus.LOCKED);
             phaseUser.setReputation(0);
             phaseUser.setCoins(0);
             phaseUserService.save(phaseUser);

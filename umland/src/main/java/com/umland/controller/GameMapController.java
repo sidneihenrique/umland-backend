@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.umland.entities.Phase;
+import com.umland.entities.PhaseTransition;
 import com.umland.entities.PhaseUser;
 import com.umland.entities.User;
 
@@ -58,7 +59,7 @@ public class GameMapController {
             throw new RuntimeException("GameMap não encontrado com id: " + gameMapId);
         }
         // Supondo que exista um método no serviço para buscar PhaseUser por GameMap e usuário
-        return gameMapService.findPhaseUsersByGameMapAndUser(gameMapId, userId);
+        return gameMapService.getOrderedPhaseUsersByGameMapAndUser(gameMapId, userId);
     }
     
     @PostMapping("/{gameMapId}/set-to-user/{userId}")
@@ -80,5 +81,11 @@ public class GameMapController {
         }
         gameMapService.saveGameMapAndUser(gameMap, user);
         return ResponseEntity.ok(gameMap);
+    }
+    
+    @GetMapping("/{gameMapId}/phase-transitions")
+    public List<PhaseTransition> getPhaseTransitionsByGameMapId(@PathVariable Integer gameMapId) {
+        List<PhaseTransition> transitions = gameMapService.getPhaseTransitionsByGameMapId(gameMapId);
+    	return transitions;
     }
 }
