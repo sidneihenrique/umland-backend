@@ -2,12 +2,15 @@ package com.umland.controller;
 
 import com.umland.entities.GameMap;
 import com.umland.service.GameMapService;
+import com.umland.service.PhaseUserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.umland.entities.Phase;
 import com.umland.entities.PhaseTransition;
 import com.umland.entities.PhaseUser;
+import com.umland.entities.enums.PhaseStatus;
 import com.umland.entities.User;
 
 import java.util.List;
@@ -18,6 +21,9 @@ public class GameMapController {
 
     @Autowired
     private GameMapService gameMapService;
+    
+    @Autowired
+    private PhaseUserService phaseUserService;
 
     @GetMapping
     public List<GameMap> getAll() {
@@ -58,8 +64,8 @@ public class GameMapController {
         if (gameMap == null) {
             throw new RuntimeException("GameMap não encontrado com id: " + gameMapId);
         }
-        // Supondo que exista um método no serviço para buscar PhaseUser por GameMap e usuário
-        return gameMapService.getOrderedPhaseUsersByGameMapAndUser(gameMapId, userId);
+        // Retorna todas as fases associadas ao GameMap para o usuário especificado
+        return gameMapService.findPhaseUsersByGameMapAndUser(gameMapId, userId);
     }
     
     @PostMapping("/{gameMapId}/set-to-user/{userId}")
@@ -79,6 +85,29 @@ public class GameMapController {
         if (!gameMap.getUsers().contains(user)) {
             gameMap.getUsers().add(user);
         }
+        
+        for(Phase phase : gameMap.getPhases()) {
+        	
+        	// Evita duplicidade
+        	PhaseUser verifyPhaseUserExist = phaseUserService.findByPhaseAndUserId(phase.getId(), user.getId());
+        	
+        	if(verifyPhaseUserExist != null) {
+				continue;
+			}
+        	
+			PhaseUser phaseUser = new PhaseUser();
+        	if(phase.getIncomingTransitions().size() == 0) {
+        		phaseUser.setStatus(PhaseStatus.AVAILABLE);
+        	} else {
+				phaseUser.setStatus(PhaseStatus.LOCKED);
+			}
+        	
+			phaseUser.setPhase(phase);
+			phaseUser.setUser(user);
+			phaseUser.setCompleted(false);
+			phaseUserService.save(phaseUser);
+		}
+        
         gameMapService.saveGameMapAndUser(gameMap, user);
         return ResponseEntity.ok(gameMap);
     }
