@@ -3,7 +3,6 @@ package com.umland.controller;
 import com.umland.entities.User;
 import com.umland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 import com.umland.service.AvatarService;
 import com.umland.entities.Avatar;
@@ -37,9 +36,6 @@ public class UserController {
     @Autowired
     private PhaseUserService phaseUserService;
 
-    
-    @Autowired
-    private Environment env;
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -77,12 +73,6 @@ public class UserController {
         user.setReputation(100); // valor inicial de reputation
         user.setCoins(100); // valor inicial de coins
         
-        // Associa o GameMap de id 1
-        GameMap gameMap = gameMapService.findById(1);
-        if (gameMap == null) {
-            throw new RuntimeException("GameMap não encontrado com id: 1");
-        }
-        user.getGameMaps().add(gameMap);
         
         // Cria e associa o inventário
         Inventory inventory = new Inventory();
@@ -92,24 +82,6 @@ public class UserController {
         // Salva o usuário
         User savedUser = userService.save(user);
 
-        int countPhases = 0; 
-        // Cria PhaseUser para cada Phase do GameMap
-        for (Phase phase : gameMap.getPhases()) {
-            PhaseUser phaseUser = new PhaseUser();
-            phaseUser.setUser(savedUser);
-            phaseUser.setPhase(phase);
-            if (countPhases == 0) {
-				phaseUser.setStatus(PhaseStatus.AVAILABLE); // primeira fase disponível
-				phaseUser.setCurrent(true);
-			} else {
-				phaseUser.setStatus(PhaseStatus.LOCKED); // fases subsequentes bloqueadas
-				phaseUser.setCurrent(false);
-			}
-            phaseUser.setReputation(0);
-            phaseUser.setCoins(0);
-            phaseUserService.save(phaseUser);
-            countPhases++;
-        }
 
         return savedUser;
     }
