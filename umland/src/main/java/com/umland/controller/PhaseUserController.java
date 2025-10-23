@@ -60,4 +60,30 @@ public class PhaseUserController {
         phaseUserService.updateUserDiagram(id, userDiagram);
     }
     
+    @PostMapping("/unlock-next")
+    public void unlockNextPhase(@RequestBody UnlockRequest request) {
+        phaseUserService.unlockNextPhaseForUser(request.getPhaseId(), request.getUserId());
+    }
+
+    public static class UnlockRequest {
+        private Integer phaseId;
+        private Integer userId;
+
+        public Integer getPhaseId() {
+            return phaseId;
+        }
+
+        public void setPhaseId(Integer phaseId) {
+            this.phaseId = phaseId;
+        }
+
+        public Integer getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Integer userId) {
+            this.userId = userId;
+        }
+    }
+    
 }
