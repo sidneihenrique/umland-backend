@@ -3,6 +3,8 @@ package com.umland.service;
 import com.umland.dao.PhaseTransitionDao;
 import com.umland.dao.PhaseUserDao;
 import com.umland.entities.PhaseUser;
+import com.umland.entities.enums.PhaseStatus;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +49,22 @@ public class PhaseUserService {
         return phaseUserDao.updateUserDiagramById(id, userDiagram);
     }
  
+    // Altera o status do PhaseUser para AVAILABLE para o phaseId e userId informados
+    public void unlockNextPhaseForUser(Integer phaseId, Integer userId) {
+        PhaseUser phaseUser = findByPhaseAndUserId(phaseId, userId);
+        if (phaseUser != null) {
+        	phaseUser.setStatus(PhaseStatus.COMPLETED);
+        	phaseUser.getPhase().getOutgoingTransitions().forEach(pt -> {
+				PhaseUser nextPhaseUser = findByPhaseAndUserId(pt.getToPhase().getId(), userId);
+				if (nextPhaseUser != null && nextPhaseUser.getStatus() == PhaseStatus.LOCKED) {
+					nextPhaseUser.setStatus(PhaseStatus.AVAILABLE);
+					nextPhaseUser.setCurrent(true);
+					phaseUserDao.save(nextPhaseUser);
+				}
+			});
+        	phaseUser.setCurrent(false);
+            phaseUserDao.save(phaseUser);
+        }
+    }
 
 }
