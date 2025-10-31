@@ -81,6 +81,9 @@ public class UserController {
         
         // Salva o usuário
         User savedUser = userService.save(user);
+        
+        // Salva o inventário
+        inventoryService.save(inventory);
 
 
         return savedUser;
