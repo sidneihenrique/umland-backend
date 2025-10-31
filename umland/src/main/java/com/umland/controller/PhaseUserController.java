@@ -9,6 +9,10 @@ import com.umland.entities.enums.PhaseStatus;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+
+@CrossOrigin(origins = "http://localhost:4200") // ou "*" (menos seguro)
 @RestController
 @RequestMapping("/phase-users")
 public class PhaseUserController {
