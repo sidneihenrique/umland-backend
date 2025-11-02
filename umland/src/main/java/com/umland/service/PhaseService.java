@@ -60,6 +60,8 @@ public class PhaseService {
         existingPhase.setCorrectDiagrams(phase.getCorrectDiagrams());
         existingPhase.setCharacterDialogues(phase.getCharacterDialogues());
         existingPhase.setDiagramInitial(phase.getDiagramInitial());
+        existingPhase.setNodeType(phase.getNodeType());
+        existingPhase.setDiagramType(phase.getDiagramType());
         // Não altera existingPhase.setPhaseUsers(...);
         
         // Garante PhaseUser para cada usuário do GameMap

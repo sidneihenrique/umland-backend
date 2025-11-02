@@ -40,6 +40,7 @@ public class PhaseController {
             dto.setCorrectDiagrams(phase.getCorrectDiagrams());
             dto.setCharacterDialogues(phase.getCharacterDialogues());
             dto.setNodeType(phase.getNodeType());
+            dto.setDiagramType(phase.getDiagramType());
             // Outgoing: collect target phase IDs
             dto.setOutgoingTransitionIds(
                 phase.getOutgoingTransitions().stream()
