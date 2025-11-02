@@ -172,6 +172,14 @@ public class Phase {
 	public void setNodeType(PhaseNodeType nodeType) {
 		this.nodeType = nodeType;
 	}
+	
+	public DiagramType getDiagramType() {
+	    return diagramType;
+	}
+
+	public void setDiagramType(DiagramType diagramType) {
+	    this.diagramType = diagramType;
+	}
 
 	public List<PhaseTransition> getOutgoingTransitions() {
 		return outgoingTransitions;
