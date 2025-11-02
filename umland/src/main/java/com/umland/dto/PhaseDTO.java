@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.umland.entities.enums.PhaseType;
 import com.umland.entities.enums.PhaseMode;
+import com.umland.entities.enums.DiagramType;
 import com.umland.entities.Character;
 import com.umland.entities.GameMap;
 import com.umland.entities.enums.PhaseNodeType;
@@ -23,6 +24,7 @@ public class PhaseDTO {
     private List<String> correctDiagrams;
     private List<String> characterDialogues;
     private PhaseNodeType nodeType;
+    private DiagramType diagramType;
     private List<Integer> outgoingTransitionIds;
     private List<Integer> incomingTransitionIds;
     
@@ -100,6 +102,15 @@ public class PhaseDTO {
 	public void setNodeType(PhaseNodeType nodeType) {
 		this.nodeType = nodeType;
 	}
+	
+	public DiagramType getDiagramType() {
+		return diagramType;
+	}
+	
+	public void setDiagramType(DiagramType diagramType) {
+		this.diagramType = diagramType;
+	}
+	
 	public List<Integer> getOutgoingTransitionIds() {
 		return outgoingTransitionIds;
 	}
