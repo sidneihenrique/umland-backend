@@ -61,6 +61,9 @@ public class Phase {
     @Enumerated(EnumType.STRING)
     private PhaseNodeType nodeType;
     
+    @Enumerated(EnumType.STRING)
+    private DiagramType diagramType;
+    
     @OneToMany(mappedBy = "fromPhase", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     @JsonBackReference("phase-from")
     private List<PhaseTransition> outgoingTransitions = new ArrayList<>();
