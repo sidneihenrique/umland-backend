@@ -22,6 +22,10 @@ public interface PhaseUserDao extends JpaRepository<PhaseUser, Integer> {
     int updateUserDiagramById(Integer id, String userDiagram);
 
     PhaseUser findByPhase_IdAndUser_Id(Integer phaseId, Integer userId);
+    
+    @Transactional
+    long deleteByUserId(Long userId);
+
 
 
 }
