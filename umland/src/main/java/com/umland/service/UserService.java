@@ -33,9 +33,28 @@ public class UserService {
         return userDao.save(user);
     }
 
-    public User update(Long id, User user) {
-        user.setId(id.intValue());
-        return userDao.save(user);
+    @Transactional
+    public User update(Long id, User incoming) {
+        User existing = userDao.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado: " + id));
+
+        // Atualiza apenas os campos esperados (evita sobrescrever relacionamentos ausentes)
+        if (incoming.getName() != null) existing.setName(incoming.getName());
+        if (incoming.getEmail() != null) existing.setEmail(incoming.getEmail());
+        if (incoming.getPassword() != null) existing.setPassword(incoming.getPassword());
+
+        // Para numéricos/booleanos: se sua entidade usa wrapper types (Integer/Long/Boolean) é mais fácil detectar null.
+        // Caso use primitivos (int/boolean), trate de forma apropriada (usar DTO é melhor).
+        if (incoming.getCoins() != existing.getCoins()) existing.setCoins(incoming.getCoins());
+        if (incoming.getReputation() != existing.getReputation()) existing.setReputation(incoming.getReputation());
+        if (incoming.getAvatar() != null) existing.setAvatar(incoming.getAvatar());
+
+        // NÃO tocar em existing.getInventory() a menos que incoming forneça algo intencionalmente:
+        if (incoming.getInventory() != null) {
+            existing.setInventory(incoming.getInventory());
+        }
+
+        return userDao.save(existing);
     }
 
     public void delete(Long id) {
