@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AgentMigrationStateService">
+    <option name="pendingSessionIds">
+      <option value="74f45531-00fb-4551-95ed-c5b3ef06264f" />
+      <option value="be57e186-7956-41ec-8dd7-d8d30fe55e2d" />
+    </option>
+    <option name="pendingTurns">
+      <map>
+        <entry key="4d64d475-911a-4dd1-a501-28e615997882">
+          <value>
+            <set>
+              <option value="b61d0570-eed8-4932-bcd8-33465fe5ce61" />
+              <option value="263632de-d6bc-43fe-b1ab-3c4f3c617678" />
+              <option value="7e612991-2e81-47e3-a72d-7859a4e63632" />
+              <option value="0c80fd40-0bed-48e7-b16a-b78cc497d609" />
+              <option value="71c1bbbb-c46f-40b0-99aa-b1aa20787425" />
+            </set>
+          </value>
+        </entry>
+        <entry key="74f45531-00fb-4551-95ed-c5b3ef06264f">
+          <value>
+            <set>
+              <option value="8a735a10-7644-4736-b8c4-63b6872ebe3e" />
+            </set>
+          </value>
+        </entry>
+        <entry key="be57e186-7956-41ec-8dd7-d8d30fe55e2d">
+          <value>
+            <set>
+              <option value="27cb5814-db52-43c9-bbbd-251775bf2205" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <pendingWorkingSetItems>
+      <entry key="4d64d475-911a-4dd1-a501-28e615997882">
+        <set>
+          <option value="file://$PROJECT_DIR$/umland/check-postgres.bat" />
+          <option value="file://$PROJECT_DIR$/umland/src/main/java/com/umland/config/DatabaseInitializer.java" />
+          <option value="file://$PROJECT_DIR$/umland/IMPLEMENTATION_SUMMARY.md" />
+          <option value="file://$PROJECT_DIR$/umland/src/main/resources/application.properties" />
+          <option value="file://$PROJECT_DIR$/umland/DATABASE_RESTORE_README.md" />
+        </set>
+      </entry>
+      <entry key="74f45531-00fb-4551-95ed-c5b3ef06264f">
+        <set>
+          <option value="file://$PROJECT_DIR$/umland/src/main/java/com/umland/config/DatabaseInitializer.java" />
+        </set>
+      </entry>
+      <entry key="be57e186-7956-41ec-8dd7-d8d30fe55e2d">
+        <set>
+          <option value="file://$PROJECT_DIR$/umland/src/main/java/com/umland/config/DatabaseInitializer.java" />
+          <option value="file://$PROJECT_DIR$/umland/src/main/resources/application.properties" />
+        </set>
+      </entry>
+    </pendingWorkingSetItems>
+  </component>
+</project>
