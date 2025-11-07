@@ -15,6 +15,10 @@ import com.umland.entities.PhaseUser;
 import com.umland.entities.Phase;
 import com.umland.entities.enums.PhaseStatus;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+
 import java.util.List;
 
 @RestController
@@ -102,5 +106,18 @@ public class UserController {
     @PostMapping("/login")
     public List<User> login(@RequestParam String email, @RequestParam String password) {
         return userService.findByEmailAndPassword(email, password);
+    }
+    
+    // endpoint para resetar dados do jogo do usuário
+    @PostMapping("/{id}/reset-game")
+    public User resetGameData(@PathVariable Long id) {
+        try {
+            return userService.resetGameData(id);
+        } catch (ResponseStatusException ex) {
+            // propaga 404 corretamente
+            throw ex;
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao resetar dados do usuário", ex);
+        }
     }
 }
