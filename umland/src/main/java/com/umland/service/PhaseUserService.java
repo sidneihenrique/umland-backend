@@ -66,5 +66,10 @@ public class PhaseUserService {
             phaseUserDao.save(phaseUser);
         }
     }
+    
+    // Deleta todas as PhaseUser associadas a um usuário (retorna quantidade deletada opcional)
+    public long deleteByUserId(Long userId) {
+        return phaseUserDao.deleteByUserId(userId);
+    }
 
 }
