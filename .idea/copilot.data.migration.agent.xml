@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AgentMigrationStateService">
+    <option name="migrationStatus" value="IN_PROGRESS" />
     <option name="pendingSessionIds">
+      <option value="3ff63881-2d34-47eb-a153-729ee79d0451" />
+      <option value="67be6c1b-16a7-480c-9aad-b79c51354388" />
       <option value="74f45531-00fb-4551-95ed-c5b3ef06264f" />
       <option value="be57e186-7956-41ec-8dd7-d8d30fe55e2d" />
     </option>
     <option name="pendingTurns">
       <map>
+        <entry key="3ff63881-2d34-47eb-a153-729ee79d0451">
+          <value>
+            <set>
+              <option value="bd6a2317-cf85-478c-bca4-8fa683f6db5c" />
+              <option value="d3d6fc14-4166-4537-b560-226a44a54b65" />
+              <option value="3fb1a5fc-cf2f-4437-ab88-b0674b023f3d" />
+            </set>
+          </value>
+        </entry>
         <entry key="4d64d475-911a-4dd1-a501-28e615997882">
           <value>
             <set>
-              <option value="b61d0570-eed8-4932-bcd8-33465fe5ce61" />
-              <option value="263632de-d6bc-43fe-b1ab-3c4f3c617678" />
-              <option value="7e612991-2e81-47e3-a72d-7859a4e63632" />
               <option value="0c80fd40-0bed-48e7-b16a-b78cc497d609" />
+              <option value="263632de-d6bc-43fe-b1ab-3c4f3c617678" />
               <option value="71c1bbbb-c46f-40b0-99aa-b1aa20787425" />
+              <option value="7e612991-2e81-47e3-a72d-7859a4e63632" />
+              <option value="b61d0570-eed8-4932-bcd8-33465fe5ce61" />
+            </set>
+          </value>
+        </entry>
+        <entry key="67be6c1b-16a7-480c-9aad-b79c51354388">
+          <value>
+            <set>
+              <option value="013544ba-9705-4c23-9a0c-26da62b2b1ef" />
             </set>
           </value>
         </entry>
@@ -35,26 +54,9 @@
       </map>
     </option>
     <pendingWorkingSetItems>
-      <entry key="4d64d475-911a-4dd1-a501-28e615997882">
-        <set>
-          <option value="file://$PROJECT_DIR$/umland/check-postgres.bat" />
-          <option value="file://$PROJECT_DIR$/umland/src/main/java/com/umland/config/DatabaseInitializer.java" />
-          <option value="file://$PROJECT_DIR$/umland/IMPLEMENTATION_SUMMARY.md" />
-          <option value="file://$PROJECT_DIR$/umland/src/main/resources/application.properties" />
-          <option value="file://$PROJECT_DIR$/umland/DATABASE_RESTORE_README.md" />
-        </set>
-      </entry>
-      <entry key="74f45531-00fb-4551-95ed-c5b3ef06264f">
-        <set>
-          <option value="file://$PROJECT_DIR$/umland/src/main/java/com/umland/config/DatabaseInitializer.java" />
-        </set>
-      </entry>
-      <entry key="be57e186-7956-41ec-8dd7-d8d30fe55e2d">
-        <set>
-          <option value="file://$PROJECT_DIR$/umland/src/main/java/com/umland/config/DatabaseInitializer.java" />
-          <option value="file://$PROJECT_DIR$/umland/src/main/resources/application.properties" />
-        </set>
-      </entry>
+      <entry key="4d64d475-911a-4dd1-a501-28e615997882" />
+      <entry key="74f45531-00fb-4551-95ed-c5b3ef06264f" />
+      <entry key="be57e186-7956-41ec-8dd7-d8d30fe55e2d" />
     </pendingWorkingSetItems>
   </component>
 </project>
