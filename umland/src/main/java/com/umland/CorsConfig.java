@@ -17,7 +17,8 @@ public class CorsConfig {
             	registry.addMapping("/**") // permite todos os endpoints
 		                .allowedOrigins(
 		                        "http://localhost:4200",  // ✅ Para desenvolvimento local
-		                        "https://hkv62z3p-4200.brs.devtunnels.ms"  // ✅ Para DevTunnels
+		                        "https://hkv62z3p-4200.brs.devtunnels.ms",  // ✅ Para DevTunnels
+		                        "https://matrix-umland.github.io"  // ✅ Para GitHub Pages (Produção)
 	                    )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // métodos HTTP
                         .allowedHeaders("*") // cabeçalhos
