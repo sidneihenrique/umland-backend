@@ -12,7 +12,7 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
+-- SET transaction_timeout = 0; -- PostgreSQL 17+ only
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -26,10 +26,10 @@ SET row_security = off;
 -- Name: umland; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE umland WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Portuguese_Brazil.1252';
+-- CREATE DATABASE umland -- Already created by docker-entrypoint WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Portuguese_Brazil.1252';
 
 
-ALTER DATABASE umland OWNER TO postgres;
+-- ALTER DATABASE umland OWNER TO postgres;
 
 \unrestrict WfgoLeuVhZkDp66YdOLDzoqxtLtubvFRkDyGG5Z3VW7eaqb2PJDYr9kbS2krI1l
 \connect umland
@@ -38,7 +38,7 @@ ALTER DATABASE umland OWNER TO postgres;
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
+-- SET transaction_timeout = 0; -- PostgreSQL 17+ only
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);

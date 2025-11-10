@@ -1,0 +1,92 @@
+services:
+  # ==================================
+  # Banco de Dados PostgreSQL
+  # ==================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: umland-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: umland
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      # Persistência de dados
+      - postgres_data:/var/lib/postgresql/data
+      # Script de inicialização (opcional)
+      - ./src/main/resources/umland.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - umland-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==================================
+  # Backend Spring Boot
+  # ==================================
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: umland-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Configurações do Spring
+      SPRING_PROFILES_ACTIVE: docker
+      
+      # Database
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/umland
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      
+      # JPA/Hibernate
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      
+      # Upload paths (dentro do container)
+      APP_FILES_PATH: /app/uploads
+      APP_FILES_AVATARS_PATH: /app/uploads/avatars
+      APP_FILES_CHARACTERS_PATH: /app/uploads/characters
+      APP_FILES_ITEMS_PATH: /app/uploads/items
+      
+      # CORS (permite localhost e GitHub Pages)
+      SPRING_WEB_CORS_ALLOWED_ORIGIN_PATTERNS: http://localhost:4200,https://*.github.io
+      
+      # Database restore (desabilitado - Hibernate cria as tabelas)
+      APP_DB_RESTORE_ON_STARTUP: "false"
+    ports:
+      - "9090:9090"
+    volumes:
+      # Persistência de uploads
+      - uploads_data:/app/uploads
+    networks:
+      - umland-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+# ==================================
+# Volumes (Persistência de Dados)
+# ==================================
+volumes:
+  postgres_data:
+    driver: local
+  uploads_data:
+    driver: local
+
+# ==================================
+# Rede
+# ==================================
+networks:
+  umland-network:
+    driver: bridge

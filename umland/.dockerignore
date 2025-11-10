@@ -1,0 +1,46 @@
+# Arquivos compilados
+target/
+*.class
+*.jar
+*.war
+
+# IDEs
+.idea/
+.vscode/
+.settings/
+.classpath
+.project
+*.iml
+
+# Logs
+*.log
+logs/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# Uploads locais (não copiar para imagem)
+uploads/
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.swp
+*~
+
+# Documentação
+README.md
+*.md
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
