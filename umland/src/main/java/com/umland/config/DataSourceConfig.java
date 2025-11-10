@@ -34,23 +34,53 @@ public class DataSourceConfig {
         
         logger.info("DATABASE_URL encontrada");
         
-        // Converte formato Railway/Heroku para JDBC
-        // A URL já contém user:pass@host, então NÃO precisamos passar separadamente
-        if (databaseUrl.startsWith("postgresql://")) {
-            databaseUrl = "jdbc:" + databaseUrl;
-            logger.info("✅ Convertido postgresql:// para jdbc:postgresql://");
-        } else if (databaseUrl.startsWith("postgres://")) {
-            databaseUrl = databaseUrl.replace("postgres://", "jdbc:postgresql://");
-            logger.info("✅ Convertido postgres:// para jdbc:postgresql://");
+        // Parse da URL do Railway: postgresql://user:pass@host:port/database
+        String username = null;
+        String password = null;
+        String jdbcUrl = databaseUrl;
+        
+        if (databaseUrl.startsWith("postgresql://") || databaseUrl.startsWith("postgres://")) {
+            try {
+                // Remove o prefixo postgresql:// ou postgres://
+                String urlWithoutPrefix = databaseUrl.replaceFirst("^postgres(ql)?://", "");
+                
+                // Parse: user:pass@host:port/database
+                if (urlWithoutPrefix.contains("@")) {
+                    String[] parts = urlWithoutPrefix.split("@", 2);
+                    String credentials = parts[0];
+                    String hostAndDb = parts[1];
+                    
+                    // Extrai user e pass
+                    if (credentials.contains(":")) {
+                        String[] creds = credentials.split(":", 2);
+                        username = creds[0];
+                        password = creds[1];
+                    }
+                    
+                    // Reconstrói a URL JDBC SEM credenciais
+                    jdbcUrl = "jdbc:postgresql://" + hostAndDb;
+                    
+                    logger.info("✅ URL parseada com sucesso");
+                    logger.info("👤 Username: {}", username);
+                    logger.info("🔐 Password: presente");
+                    logger.info("🔗 JDBC URL: {}", jdbcUrl);
+                }
+            } catch (Exception e) {
+                logger.error("❌ Erro ao parsear DATABASE_URL: {}", e.getMessage());
+                throw new IllegalStateException("Erro ao parsear DATABASE_URL", e);
+            }
         }
         
-        // Remove credenciais da URL para log (segurança)
-        String safeUrl = databaseUrl.replaceAll("://([^:]+):([^@]+)@", "://***:***@");
-        logger.info("🔗 Conectando em: {}", safeUrl);
-        
-        // Cria o DataSource APENAS com a URL (que já contém credenciais)
+        // Cria o DataSource com credenciais separadas
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url(databaseUrl);
+        dataSourceBuilder.url(jdbcUrl);
+        
+        if (username != null) {
+            dataSourceBuilder.username(username);
+        }
+        if (password != null) {
+            dataSourceBuilder.password(password);
+        }
         
         logger.info("✅ DataSource configurado com sucesso!");
         return dataSourceBuilder.build();
