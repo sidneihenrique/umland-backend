@@ -1,0 +1,7 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "umland/Dockerfile"
+dockerContext = "."
+
+[deploy]
+startCommand = ""

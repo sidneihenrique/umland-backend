@@ -7,13 +7,13 @@ FROM maven:3.9.9-eclipse-temurin-21-alpine AS builder
 WORKDIR /app
 
 # Copia apenas pom.xml primeiro (cache de dependências)
-COPY pom.xml .
+COPY umland/pom.xml .
 
 # Baixa dependências (essa camada fica em cache se pom.xml não mudar)
 RUN mvn dependency:go-offline -B
 
 # Copia o código fonte
-COPY src ./src
+COPY umland/src ./src
 
 # Compila a aplicação (pula testes para build mais rápido)
 RUN mvn clean package -DskipTests
