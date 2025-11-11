@@ -7,13 +7,20 @@ FROM maven:3.9.9-eclipse-temurin-21-alpine AS builder
 WORKDIR /app
 
 # Copia apenas pom.xml primeiro (cache de dependências)
-COPY umland/pom.xml .
+COPY pom.xml .
 
 # Baixa dependências (essa camada fica em cache se pom.xml não mudar)
 RUN mvn dependency:go-offline -B
 
 # Copia o código fonte
-COPY umland/src ./src
+COPY src ./src
+
+# Copia o zip para dentro do container
+COPY /uploads.zip /app/uploads.zip
+
+# Entra na pasta e descompacta
+RUN apk add --no-cache unzip && \
+    cd /app/ && unzip uploads.zip
 
 # Compila a aplicação (pula testes para build mais rápido)
 RUN mvn clean package -DskipTests
@@ -33,11 +40,13 @@ RUN addgroup -S spring && adduser -S spring -G spring
 WORKDIR /app
 
 # Cria diretórios para uploads
-RUN mkdir -p /app/uploads/avatars /app/uploads/characters /app/uploads/items && \
-    chown -R spring:spring /app
+RUN chown -R spring:spring /app
 
 # Copia o JAR da stage de build
 COPY --from=builder /app/target/*.war app.war
+
+# Copia os arquivos de upload descompactados
+COPY --from=builder /app/uploads/ uploads/
 
 # Muda para usuário não-root
 USER spring:spring

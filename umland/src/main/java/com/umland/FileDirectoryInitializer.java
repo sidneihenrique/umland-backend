@@ -15,7 +15,7 @@ public class FileDirectoryInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        List<String> subfolders = List.of("characters", "items", "avatars");
+        List<String> subfolders = List.of("characters", "avatars");
 
         File baseDir = new File(basePath);
         if (!baseDir.exists()) {
