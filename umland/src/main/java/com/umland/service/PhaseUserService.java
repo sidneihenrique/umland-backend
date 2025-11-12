@@ -56,7 +56,7 @@ public class PhaseUserService {
         	phaseUser.setStatus(PhaseStatus.COMPLETED);
         	phaseUser.getPhase().getOutgoingTransitions().forEach(pt -> {
 				PhaseUser nextPhaseUser = findByPhaseAndUserId(pt.getToPhase().getId(), userId);
-				if (nextPhaseUser != null && nextPhaseUser.getStatus() == PhaseStatus.LOCKED) {
+				if (nextPhaseUser != null) {
 					nextPhaseUser.setStatus(PhaseStatus.AVAILABLE);
 					nextPhaseUser.setCurrent(true);
 					phaseUserDao.save(nextPhaseUser);
