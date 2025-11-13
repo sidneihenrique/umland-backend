@@ -2,7 +2,7 @@
 # Execute este script após instalar o Google Cloud CLI
 
 # Configurações
-$PROJECT_ID = "seu-project-id"  # SUBSTITUIR pelo ID do seu projeto GCloud
+$PROJECT_ID = "umland-backend"   # ID do projeto GCloud
 $REGION = "us-central1"          # Região do Cloud Run
 $SERVICE_NAME = "umland-backend"
 $IMAGE_NAME = "gcr.io/$PROJECT_ID/$SERVICE_NAME"

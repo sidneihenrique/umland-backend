@@ -24,12 +24,12 @@ VOLUME /tmp
 
 COPY --from=build /workspace/app/target/*.war /app/app.war
 
-RUN addgroup -S spring && adduser -S spring -G spring
-RUN chown spring:spring /app/app.war
-USER spring:spring
+# Copia os arquivos de upload ANTES de criar o usuário
+COPY --from=build /app/uploads/ /app/uploads/
 
-# Copia os arquivos de upload descompactados
-COPY --from=build /app/uploads/ uploads/
+RUN addgroup -S spring && adduser -S spring -G spring
+RUN chown -R spring:spring /app
+USER spring:spring
 
 EXPOSE 8080
 
